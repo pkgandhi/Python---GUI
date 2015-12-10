@@ -1,0 +1,28 @@
+#!/bin/bash
+#PBS -k o
+#PBS -l walltime=20:00:00
+#PBS -l nodes=1:ppn=32:dc2
+#PBS -l gres=ccm
+#PBS -q cpu
+#PBS -N recon-all_LD_19001_30
+#PBS -j oe
+#PBS -o recon-all_LD_19001_30.log
+#PBS -V
+#PBS -m abe
+#PBS -M pkgandhi@iu.edu
+
+module load freesurfer
+export SUBJECTS_DIR=/N/dc2/scratch/pkgandhi/subjects/TESTing_LIC
+source /N/soft/cle4/freesurfer/5.3.0/FreeSurferEnv.sh
+
+module load ccm
+
+START=`/bin/date +%s`
+echo $START
+
+ccmrun /N/dc2/scratch/pkgandhi/subjects/TESTing_LIC_RES/shell_LD_avgtemp_19001_30.sh
+
+END=`/bin/date +%s`
+echo $END
+
+echo $((END-START))
