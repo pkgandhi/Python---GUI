@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -k o
+#PBS -l walltime=40:00:00
+#PBS -l nodes=1:ppn=32:dc2
+#PBS -l gres=ccm
+#PBS -q cpu
+#PBS -N recon-all_LD_19031_60
+#PBS -j oe
+#PBS -o recon-all_LD_19031_60.log
+#PBS -V
+#PBS -m abe
+#PBS -M pkgandhi@iu.edu
+
+export FREESURFER_HOME=/N/soft/rhel6/freesurfer/5.1.0
+export FSFAST_HOME=/N/soft/rhel6/freesurfer/5.1.0/fsfast
+export MNI_DIR=/N/soft/rhel6/freesurfer/5.1.0/mni
+export FSL_DIR=/N/soft/rhel6/freesurfer/5.1.0/fsl
+source /N/dc2/projects/shenlab/subjects/fsenv51/SetUpFreeSurfer.sh
+
+export SUBJECTS_DIR=/N/dc2/scratch/pkgandhi/subjects/LONGITUDINAL_DATA_CFN
+module load ccm
+
+START=`/bin/date +%s`
+echo $START
+
+ccmrun /N/dc2/scratch/pkgandhi/subjects/LONGITUDINAL_DATA_RES_CFN/shell_LD_avgtemp_19031_60.sh
+
+END=`/bin/date +%s`
+echo $END
+
+echo $((END-START))
